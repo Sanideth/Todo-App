@@ -16,6 +16,7 @@ export interface ITodo {
 function App() {
   const [todos, setTodos] = React.useState<ITodo[]>([]);
   const [inputValue, setInputValue] = React.useState<string>("");
+  const [filter, setFilter] = React.useState<string>("All");
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -53,6 +54,34 @@ function App() {
     );
   };
 
+  const filteredTodos = React.useMemo(() => {
+    switch (filter) {
+      case "Active":
+        return todos?.filter((item) => !item.done);
+      case "Done":
+        return todos?.filter((item) => item.done);
+      default:
+        return todos;
+    }
+  }, [filter, todos]);
+
+  const handleFilterChange = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    filter: string
+  ) => {
+    setFilter(filter);
+  };
+
+  const handleAllComplete = () => {
+    setTodos(
+      (prevState) =>
+        prevState &&
+        prevState.map((item) => {
+          return { ...item, done: true };
+        })
+    );
+  };
+
   return (
     <div className={classes.app}>
       <h1 className={classes.headingMain}>Todo</h1>
@@ -66,7 +95,10 @@ function App() {
         <div className={classes.cardContainer}>
           <form onSubmit={handleSubmit}>
             <div className={classes.formContainer}>
-              <div className={classes.iconContainer}>
+              <div
+                className={classes.iconContainer}
+                onClick={handleAllComplete}
+              >
                 <IconCheck className={classes.iconCheck} />
                 <IconFull />
               </div>
@@ -84,8 +116,8 @@ function App() {
             </div>
           </form>
           <div className={classes.todosContainer}>
-            {todos &&
-              todos.map((todo) => (
+            {filteredTodos &&
+              filteredTodos.map((todo) => (
                 <Todo
                   key={todo.id}
                   text={todo.text}
@@ -98,13 +130,28 @@ function App() {
               ))}
           </div>
           <div className={classes.filterButtonContainer}>
-            <Button type="button" className={classes.filterButton}>
+            <Button
+              type="button"
+              className={classes.filterButton}
+              filter="All"
+              onClick={handleFilterChange}
+            >
               All
             </Button>
-            <Button type="button" className={classes.filterButton}>
+            <Button
+              type="button"
+              className={classes.filterButton}
+              filter="Active"
+              onClick={handleFilterChange}
+            >
               Active
             </Button>
-            <Button type="button" className={classes.filterButton}>
+            <Button
+              type="button"
+              className={classes.filterButton}
+              filter="Done"
+              onClick={handleFilterChange}
+            >
               Done
             </Button>
           </div>

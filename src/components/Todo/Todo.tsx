@@ -39,7 +39,10 @@ const Todo: React.FC<IProps> = ({
             <IconEmpty />
           )}
         </div>
-        <IconDelete onClick={() => handleDelete(id)} />
+        <IconDelete
+          onClick={() => handleDelete(id)}
+          className={classes.iconDelete}
+        />
       </div>
     </div>
   );

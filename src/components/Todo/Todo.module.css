@@ -28,6 +28,7 @@
 .iconCheckedContainer {
   position: relative;
   display: flex;
+  cursor: pointer;
 }
 
 .iconChecked {
@@ -35,4 +36,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.iconDelete {
+  cursor: pointer;
 }

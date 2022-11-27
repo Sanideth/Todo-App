@@ -1,5 +1,3 @@
-import { ITodo } from "../../App/App";
-
 interface IProps {
   placeholder: string;
   className: string;
