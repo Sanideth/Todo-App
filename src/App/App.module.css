@@ -1,3 +1,97 @@
 .app {
-  text-align: center;
+  display: flex;
+  gap: 29.6rem;
+}
+
+.headingMain {
+  font-size: 9.6rem;
+  color: #007fdb;
+}
+
+.card {
+  width: 43rem;
+}
+
+.bgImage {
+  background-image: url("../images/flowers.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 11.4rem 2.8rem 1.3rem 21rem;
+  border-radius: 10px 10px 0px 0px;
+  color: #fff;
+  font-family: "Russo One", sans-serif;
+}
+
+.dateContainer {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.weekDay {
+  font-size: 1.8rem;
+  line-height: 2.1rem;
+}
+
+.date {
+  font-size: 4.8rem;
+  line-height: 5.78rem;
+}
+
+.inputField {
+  padding: 1.5rem 4.8rem;
+  width: 74%;
+  background-color: #ebeff2;
+  outline: none;
+  border: 0;
+  font-family: inherit;
+}
+
+.cardContainer {
+  padding: 2.3rem 2.8rem;
+}
+
+.formContainer {
+  display: flex;
+  gap: 1rem;
+  position: relative;
+  margin-bottom: 3.6rem;
+}
+
+.formButton {
+  padding: 1.65rem 3.6rem;
+  color: #fff;
+  background-color: #20eeb0;
+}
+
+.iconContainer {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 1.6rem;
+}
+
+.iconCheck {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.todosContainer {
+  margin-bottom: 2rem;
+  height: 20rem;
+  overflow-y: auto;
+}
+
+.filterButtonContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filterButton {
+  padding: 1.65rem 3.6rem;
+  color: #fff;
+  background-color: #20eeb0;
 }

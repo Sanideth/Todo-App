@@ -5,7 +5,7 @@ interface IProps {
 }
 
 const Button: React.FC<IProps> = ({ type, children, className }) => {
-  return <button>{children}</button>;
+  return <button className={className}>{children}</button>;
 };
 
 export default Button;

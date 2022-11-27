@@ -1,0 +1,38 @@
+.todo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.todo:not(:last-child) {
+  margin-bottom: 2.4rem;
+}
+
+.headingSecondary {
+  font-weight: 500;
+  font-size: 1.8rem;
+  line-height: 2.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.time {
+  color: #888888;
+  font-size: 1.4rem;
+  line-height: 1.7rem;
+}
+.iconContainer {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+}
+.iconCheckedContainer {
+  position: relative;
+  display: flex;
+}
+
+.iconChecked {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
