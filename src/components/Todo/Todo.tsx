@@ -10,6 +10,9 @@ interface IProps {
   id: number;
   handleDelete: (id: number) => void;
   handleStatusChange: (id: number) => void;
+  onDragStart: (e: React.DragEvent<HTMLDivElement>, position: number) => void;
+  onDragEnter: (e: React.DragEvent<HTMLDivElement>, position: number) => void;
+  onDragDrop: () => void;
 }
 const Todo: React.FC<IProps> = ({
   text,
@@ -18,9 +21,18 @@ const Todo: React.FC<IProps> = ({
   id,
   handleDelete,
   handleStatusChange,
+  onDragStart,
+  onDragEnter,
+  onDragDrop,
 }) => {
   return (
-    <div className={classes.todo}>
+    <div
+      className={classes.todo}
+      draggable
+      onDragStart={(e) => onDragStart(e, id)}
+      onDragEnter={(e) => onDragEnter(e, id)}
+      onDragEnd={onDragDrop}
+    >
       <div>
         <h2 className={classes.headingSecondary}>{text}</h2>
         <p className={classes.time}>{date.toLocaleTimeString()}</p>

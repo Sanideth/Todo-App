@@ -18,6 +18,40 @@ function App() {
   const [inputValue, setInputValue] = React.useState<string>("");
   const [filter, setFilter] = React.useState<string>("All");
 
+  const dragItem = React.useRef<number | null>();
+  const dragOverItem = React.useRef<number | null>();
+
+  const handleDragStart = (
+    e: React.DragEvent<HTMLDivElement>,
+    position: number
+  ) => {
+    dragItem.current = position;
+  };
+  const handleDragEnter = (
+    e: React.DragEvent<HTMLDivElement>,
+    position: number
+  ) => {
+    dragOverItem.current = position;
+  };
+
+  // const drop = (e) => {
+  //   const copyListItems = [...list];
+  //   const dragItemContent = copyListItems[dragItem.current];
+  //   copyListItems.splice(dragItem.current, 1);
+  //   copyListItems.splice(dragOverItem.current, 0, dragItemContent);
+  //   dragItem.current = null;
+  //   dragOverItem.current = null;
+  //   setList(copyListItems);
+  // };
+  const handleDragDrop = () => {
+    const copyTodos = [...todos];
+    const dragItemContent = copyTodos[dragItem.current!];
+    copyTodos.splice(dragItem.current!, 1);
+    copyTodos.splice(dragOverItem.current!, 0, dragItemContent);
+    dragItem.current = null;
+    dragOverItem.current = null;
+    setTodos(copyTodos);
+  };
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
@@ -126,6 +160,9 @@ function App() {
                   id={todo.id}
                   handleDelete={handleDelete}
                   handleStatusChange={handleStatusChange}
+                  onDragStart={handleDragStart}
+                  onDragEnter={handleDragEnter}
+                  onDragDrop={handleDragDrop}
                 />
               ))}
           </div>
