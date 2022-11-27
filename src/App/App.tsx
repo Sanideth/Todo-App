@@ -58,18 +58,21 @@ function App() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setTodos(
-      (prevState) =>
-        prevState && [
-          ...prevState,
-          {
-            text: inputValue,
-            date: new Date(),
-            done: false,
-            id: prevState.length,
-          },
-        ]
-    );
+    if (inputValue) {
+      setTodos(
+        (prevState) =>
+          prevState && [
+            ...prevState,
+            {
+              text: inputValue,
+              date: new Date(),
+              done: false,
+              id: prevState.length,
+            },
+          ]
+      );
+    }
+
     setInputValue("");
   };
   const handleDelete = (id: number) => {
@@ -116,81 +119,93 @@ function App() {
     );
   };
 
-  return (
-    <div className={classes.app}>
-      <h1 className={classes.headingMain}>Todo</h1>
-      <div className={classes.card}>
-        <div className={classes.bgImage}>
-          <div className={classes.dateContainer}>
-            <p className={classes.weekDay}>Thur</p>
-            <p className={classes.date}>Date dfdsfsdfsdf</p>
-          </div>
-        </div>
-        <div className={classes.cardContainer}>
-          <form onSubmit={handleSubmit}>
-            <div className={classes.formContainer}>
-              <div
-                className={classes.iconContainer}
-                onClick={handleAllComplete}
-              >
-                <IconCheck className={classes.iconCheck} />
-                <IconFull />
-              </div>
+  const date = new Date();
 
-              <InputField
-                placeholder="Note"
-                className={classes.inputField}
-                type="text"
-                onChange={handleInputChange}
-                value={inputValue}
-              />
-              <Button type="submit" className={classes.formButton}>
-                +
+  return (
+    <div className={classes.appContainer}>
+      <div className={classes.app}>
+        <h1 className={classes.headingMain}>Todo</h1>
+        <div className={classes.card}>
+          <div className={classes.bgImage}>
+            <div className={classes.dateContainer}>
+              <p className={classes.weekDay}>
+                {date.toLocaleDateString([], { weekday: "short" })}
+                &nbsp;
+                {date.toLocaleDateString([], { day: "2-digit" })}
+              </p>
+              <p className={classes.date}>
+                {new Date().toLocaleTimeString([], { timeStyle: "short" })}
+              </p>
+            </div>
+          </div>
+          <div className={classes.cardContainer}>
+            <form onSubmit={handleSubmit}>
+              <div className={classes.formContainer}>
+                {todos.length > 0 && (
+                  <div
+                    className={classes.iconContainer}
+                    onClick={handleAllComplete}
+                  >
+                    <IconCheck className={classes.iconCheck} />
+                    <IconFull />
+                  </div>
+                )}
+
+                <InputField
+                  placeholder="Note"
+                  className={classes.inputField}
+                  type="text"
+                  onChange={handleInputChange}
+                  value={inputValue}
+                />
+                <Button type="submit" className={classes.formButton}>
+                  +
+                </Button>
+              </div>
+            </form>
+            <div className={classes.todosContainer}>
+              {filteredTodos &&
+                filteredTodos.map((todo) => (
+                  <Todo
+                    key={todo.id}
+                    text={todo.text}
+                    date={todo.date}
+                    done={todo.done}
+                    id={todo.id}
+                    handleDelete={handleDelete}
+                    handleStatusChange={handleStatusChange}
+                    onDragStart={handleDragStart}
+                    onDragEnter={handleDragEnter}
+                    onDragDrop={handleDragDrop}
+                  />
+                ))}
+            </div>
+            <div className={classes.filterButtonContainer}>
+              <Button
+                type="button"
+                className={classes.filterButton}
+                filter="All"
+                onClick={handleFilterChange}
+              >
+                All
+              </Button>
+              <Button
+                type="button"
+                className={classes.filterButton}
+                filter="Active"
+                onClick={handleFilterChange}
+              >
+                Active
+              </Button>
+              <Button
+                type="button"
+                className={classes.filterButton}
+                filter="Done"
+                onClick={handleFilterChange}
+              >
+                Done
               </Button>
             </div>
-          </form>
-          <div className={classes.todosContainer}>
-            {filteredTodos &&
-              filteredTodos.map((todo) => (
-                <Todo
-                  key={todo.id}
-                  text={todo.text}
-                  date={todo.date}
-                  done={todo.done}
-                  id={todo.id}
-                  handleDelete={handleDelete}
-                  handleStatusChange={handleStatusChange}
-                  onDragStart={handleDragStart}
-                  onDragEnter={handleDragEnter}
-                  onDragDrop={handleDragDrop}
-                />
-              ))}
-          </div>
-          <div className={classes.filterButtonContainer}>
-            <Button
-              type="button"
-              className={classes.filterButton}
-              filter="All"
-              onClick={handleFilterChange}
-            >
-              All
-            </Button>
-            <Button
-              type="button"
-              className={classes.filterButton}
-              filter="Active"
-              onClick={handleFilterChange}
-            >
-              Active
-            </Button>
-            <Button
-              type="button"
-              className={classes.filterButton}
-              filter="Done"
-              onClick={handleFilterChange}
-            >
-              Done
-            </Button>
           </div>
         </div>
       </div>

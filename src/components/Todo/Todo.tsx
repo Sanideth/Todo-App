@@ -35,7 +35,9 @@ const Todo: React.FC<IProps> = ({
     >
       <div>
         <h2 className={classes.headingSecondary}>{text}</h2>
-        <p className={classes.time}>{date.toLocaleTimeString()}</p>
+        <p className={classes.time}>
+          Today at {date.toLocaleTimeString([], { timeStyle: "short" })}
+        </p>
       </div>
       <div className={classes.iconContainer}>
         <div
